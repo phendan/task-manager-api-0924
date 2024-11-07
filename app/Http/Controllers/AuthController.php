@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
-use App\Models\User;
 use Illuminate\Support\Facades\{Hash, Auth};
 
 class AuthController extends Controller
@@ -74,5 +75,10 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return response()->json(status: 204);
+    }
+
+    public function user(Request $request)
+    {
+        return $request->user()->load('tasks');
     }
 }
